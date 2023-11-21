@@ -76,3 +76,7 @@ body{
 .playarea .gameboard{
     background-color: white;
 }
+
+.board-true{
+    background-color: chartreuse;
+}
