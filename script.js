@@ -28,45 +28,109 @@ function Gameboard() {
 
         const checker = function () {
 
+                // updateValue();
+                console.log(updateCounter);
+
                 let gameWin = false;
                 let gameLose =  false;
-                if (updateCounter >= 3) {
-                        if (board[0].getValue() === true && board[1].getValue() === true && board[2].getValue() === true) {
-                                gameWin = true;
-                                return gameWin;
-                        }
-                        else if (board[3].getValue() == true && board[4].getValue() == true && board[5].getValue() == true) {
-                                gameWin = true;
-                                return gameWin;
-                        }
-                        else if (board[6].getValue() == true && board[7].getValue() == true && board[8].getValue() == true) {
-                                gameWin = true;
-                                return gameWin;
-                        }
-                        else if (board[0].getValue() == true && board[3].getValue() == true && board[6].getValue() == true) {
-                                gameWin = true;
-                                return gameWin;
-                        }
-                        else if (board[1].getValue() == true && board[4].getValue() == true && board[7].getValue() == true) {
-                                gameWin = true;
-                                return gameWin;
-                        }
-                        else if (board[2].getValue() == true && board[5].getValue() == true && board[8].getValue() == true) {
-                                gameWin = true;
-                                return gameWin;
-                        }
-                        else if (board[0].getValue() == true && board[4].getValue() == true && board[8].getValue() == true) {
-                                gameWin = true;
-                                return gameWin;
-                        }
-                        else if (board[2].getValue() == true && board[4].getValue() == true && board[6].getValue() == true) {
-                                gameWin = true;
-                                return gameWin;
-                        }
-                        else {
-                                return gameWin;
+
+                if (updateCounter >= 3 ) {
+     
+                                if (board[0].getValue() === true && board[1].getValue() === true && board[2].getValue() === true) {
+                                        gameWin = true;      
+                                }
+                                else if (board[3].getValue() == true && board[4].getValue() == true && board[5].getValue() == true) {
+                                        gameWin = true;
+                                       
+                                }
+                                else if (board[6].getValue() == true && board[7].getValue() == true && board[8].getValue() == true) {
+                                        gameWin = true;
+                                        
+                                }
+                                else if (board[0].getValue() == true && board[3].getValue() == true && board[6].getValue() == true) {
+                                        gameWin = true;
+                                       
+                                }
+                                else if (board[1].getValue() == true && board[4].getValue() == true && board[7].getValue() == true) {
+                                        gameWin = true;
+                                       
+                                }
+                                else if (board[2].getValue() == true && board[5].getValue() == true && board[8].getValue() == true) {
+                                        gameWin = true;
+                                }
+                                else if (board[0].getValue() == true && board[4].getValue() == true && board[8].getValue() == true) {
+                                        gameWin = true;
+                                        
+                                }
+                                else if (board[2].getValue() == true && board[4].getValue() == true && board[6].getValue() == true) {
+                                        gameWin = true;
+                                        
+                                }
+                                //  ---- fale
+                                else if (board[0].getValue() === false && board[1].getValue() === false && board[2].getValue() === false) {
+                                        gameLose = true;      
+                                }
+                                else if (board[3].getValue() ===false && board[4].getValue() === false && board[5].getValue() === false) {
+                                        gameLose = true;
+                                       
+                                }
+                                else if (board[6].getValue() === false && board[7].getValue() === false && board[8].getValue() === false) {
+                                        gameLose = true;
+                                        
+                                }
+                                else if (board[0].getValue() === false && board[3].getValue() === false && board[6].getValue() === false) {
+                                        gameLose = true;
+                                       
+                                }
+                                else if (board[1].getValue() === false && board[4].getValue() === false && board[7].getValue() === false) {
+                                        gameLose = true;
+                                       
+                                }
+                                else if (board[2].getValue() === false && board[5].getValue() === false && board[8].getValue() === false) {
+                                        gameLose = true;
+                                }
+                                else if (board[0].getValue() === false && board[4].getValue() === false && board[8].getValue() === false) {
+                                        gameLose = true;
+                                        
+                                }
+                                else if (board[2].getValue() === false && board[4].getValue() === false && board[6].getValue() === false) {
+                                        gameLose = true;
+                                         }
+
+                
+
+                        
+                // }
+                if(gameWin){
+                        alert("O win");
+                        const boardTiles = document.querySelectorAll('.gameboard');
+                        boardTiles.forEach(
+                                (b)=>{b.style.background = ''}
+                        )
+
+                }
+
+                else if(gameLose){
+                        alert("X win")
+                        const boardTiles = document.querySelectorAll('.gameboard');
+                        boardTiles.forEach(
+                                (b)=>{b.style.background = ''}
+                        )
+                }
+                else{
+                        if(updateCounter >8){
+                                alert("You draw")
+                                const boardTiles = document.querySelectorAll('.gameboard');
+                                boardTiles.forEach(
+                                        (b)=>{b.style.background = ''}
+                                )
                         }
                 }
+                 
+
+
+
+        }
         }
         return { updateValue, getBoardValue, checker };
 }
@@ -75,9 +139,9 @@ function Gameboard() {
 
 const testBoard = Gameboard();
 
-const result = testBoard.checker();
+// const result = testBoard.checker();
 console.log(testBoard.getBoardValue())
-console.log(testBoard.checker());
+// console.log(testBoard.checker());
 
 const board0 = document.querySelector('#plate-0')
 const board1 = document.querySelector('#plate-1')
@@ -95,6 +159,7 @@ board0.addEventListener('click', function () {
         const bgImage = value === true? "url(assets/circle.png)" : "url(assets/cross.png)";
         board0.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
+        testBoard.checker();
 })
 
 board1.addEventListener('click', function () {
@@ -103,6 +168,7 @@ board1.addEventListener('click', function () {
         const bgImage = value === true? "url(assets/circle.png)" : "url(assets/cross.png)";
         board1.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
+        testBoard.checker();
 })
 
 board2.addEventListener('click', function () {
@@ -111,6 +177,7 @@ board2.addEventListener('click', function () {
         const bgImage = value === true? "url(assets/circle.png)" : "url(assets/cross.png)";
         board2.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
+        testBoard.checker();
 })
 board3.addEventListener('click', function () {
         const value = document.querySelector('#avatar').value === 'true'?true:false;
@@ -118,6 +185,7 @@ board3.addEventListener('click', function () {
         const bgImage = value === true? "url(assets/circle.png)" : "url(assets/cross.png)";
         board3.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
+        testBoard.checker();
 })
 
 board4.addEventListener('click', function () {
@@ -126,6 +194,7 @@ board4.addEventListener('click', function () {
         const bgImage = value === true? "url(assets/circle.png)" : "url(assets/cross.png)";
         board4.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
+        testBoard.checker();
 })
 
 board5.addEventListener('click', function () {
@@ -134,6 +203,7 @@ board5.addEventListener('click', function () {
         const bgImage = value === true? "url(assets/circle.png)" : "url(assets/cross.png)";
         board5.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
+        testBoard.checker();
 })
 
 board6.addEventListener('click', function () {
@@ -142,6 +212,7 @@ board6.addEventListener('click', function () {
         const bgImage = value === true? "url(assets/circle.png)" : "url(assets/cross.png)";
         board6.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
+        testBoard.checker();
 })
 
 board7.addEventListener('click', function () {
@@ -150,6 +221,7 @@ board7.addEventListener('click', function () {
         const bgImage = value === true? "url(assets/circle.png)" : "url(assets/cross.png)";
         board7.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
+        testBoard.checker();
 })
 
 board8.addEventListener('click', function () {
@@ -158,5 +230,6 @@ board8.addEventListener('click', function () {
         const bgImage = value === true? "url(assets/circle.png)" : "url(assets/cross.png)";
         board8.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
+        testBoard.checker();
 })
 
