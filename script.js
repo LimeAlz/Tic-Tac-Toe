@@ -19,12 +19,19 @@ function Gameboard() {
                 board[i] = new Tile;
         }
 
+
+
         const updateValue = function (value, pos) {
                 board.at(pos).setValue(value)
                 updateCounter = updateCounter + 1;
         };
 
         const getBoardValue = () => board.map((x) => x.getValue());
+
+        const Emptyboard = function(){
+                board.map((x) => x.setValue(""))
+                updateCounter = 0;
+        }
 
         const checker = function () {
 
@@ -107,6 +114,7 @@ function Gameboard() {
                         boardTiles.forEach(
                                 (b)=>{b.style.background = ''}
                         )
+                        Emptyboard();
 
                 }
 
@@ -116,6 +124,7 @@ function Gameboard() {
                         boardTiles.forEach(
                                 (b)=>{b.style.background = ''}
                         )
+                        Emptyboard();
                 }
                 else{
                         if(updateCounter >8){
@@ -124,6 +133,7 @@ function Gameboard() {
                                 boardTiles.forEach(
                                         (b)=>{b.style.background = ''}
                                 )
+                                Emptyboard();
                         }
                 }
                  
