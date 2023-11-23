@@ -26,6 +26,10 @@ function Gameboard() {
                 updateCounter = updateCounter + 1;
         };
 
+        const getTileValue = function (value, pos) {
+                board.at(pos).getValue()
+        };
+
         const getBoardValue = () => board.map((x) => x.getValue());
 
         const Emptyboard = function(){
@@ -108,41 +112,46 @@ function Gameboard() {
 
                         
                 // }
-                if(gameWin){
-                        alert("O win");
-                        const boardTiles = document.querySelectorAll('.gameboard');
-                        boardTiles.forEach(
-                                (b)=>{b.style.background = ''}
-                        )
-                        Emptyboard();
-
-                }
-
-                else if(gameLose){
-                        alert("X win")
-                        const boardTiles = document.querySelectorAll('.gameboard');
-                        boardTiles.forEach(
-                                (b)=>{b.style.background = ''}
-                        )
-                        Emptyboard();
-                }
-                else{
-                        if(updateCounter >8){
-                                alert("You draw")
+                setTimeout(()=>{
+                        if(gameWin){
+                                alert("O win");
+                                const boardTiles = document.querySelectorAll('.gameboard');
+                                boardTiles.forEach(
+                                        (b)=>{b.style.background = ''}
+                                )
+                                Emptyboard();
+        
+                        }
+        
+                        else if(gameLose){
+                                alert("X win")
                                 const boardTiles = document.querySelectorAll('.gameboard');
                                 boardTiles.forEach(
                                         (b)=>{b.style.background = ''}
                                 )
                                 Emptyboard();
                         }
-                }
+                        else{
+                                if(updateCounter >8){
+                                        alert("You draw")
+                                        const boardTiles = document.querySelectorAll('.gameboard');
+                                        boardTiles.forEach(
+                                                (b)=>{b.style.background = ''}
+                                        )
+                                        Emptyboard();
+                                }
+                        }
+
+
+                },500)
+
                  
 
 
 
         }
         }
-        return { updateValue, getBoardValue, checker };
+        return { getTileValue, updateValue, getBoardValue, checker };
 }
 
 
@@ -163,12 +172,20 @@ const board6 = document.querySelector('#plate-6')
 const board7 = document.querySelector('#plate-7')
 const board8 = document.querySelector('#plate-8')
 
+const boardarr = [board0,board1,board2,board3,board4,board5,board6,board7,board8]
+
 board0.addEventListener('click', function () {
         const value = document.querySelector('#avatar').value === 'true'?true:false;
         testBoard.updateValue(value, 0);
         const bgImage = value === true? "url(assets/circle.png)" : "url(assets/cross.png)";
         board0.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
+        testBoard.checker();
+        const aiCheck = aiChecker();
+        if (aiCheck){
+                aiPlay();
+        
+        }
         testBoard.checker();
 })
 
@@ -179,6 +196,9 @@ board1.addEventListener('click', function () {
         board1.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
         testBoard.checker();
+        const aiCheck = aiChecker();
+        aiCheck?aiPlay() : '';
+        testBoard.checker();
 })
 
 board2.addEventListener('click', function () {
@@ -188,6 +208,9 @@ board2.addEventListener('click', function () {
         board2.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
         testBoard.checker();
+        const aiCheck = aiChecker();
+        aiCheck?aiPlay() : '';
+        testBoard.checker();
 })
 board3.addEventListener('click', function () {
         const value = document.querySelector('#avatar').value === 'true'?true:false;
@@ -195,6 +218,9 @@ board3.addEventListener('click', function () {
         const bgImage = value === true? "url(assets/circle.png)" : "url(assets/cross.png)";
         board3.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
+        testBoard.checker();
+        const aiCheck = aiChecker();
+        aiCheck?aiPlay() : '';
         testBoard.checker();
 })
 
@@ -205,6 +231,9 @@ board4.addEventListener('click', function () {
         board4.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
         testBoard.checker();
+        const aiCheck = aiChecker();
+        aiCheck?aiPlay() : '';
+        testBoard.checker();
 })
 
 board5.addEventListener('click', function () {
@@ -213,6 +242,9 @@ board5.addEventListener('click', function () {
         const bgImage = value === true? "url(assets/circle.png)" : "url(assets/cross.png)";
         board5.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
+        testBoard.checker();
+        const aiCheck = aiChecker();
+        aiCheck?aiPlay() : '';
         testBoard.checker();
 })
 
@@ -223,6 +255,9 @@ board6.addEventListener('click', function () {
         board6.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
         testBoard.checker();
+        const aiCheck = aiChecker();
+        aiCheck?aiPlay() : '';
+        testBoard.checker();
 })
 
 board7.addEventListener('click', function () {
@@ -231,6 +266,9 @@ board7.addEventListener('click', function () {
         const bgImage = value === true? "url(assets/circle.png)" : "url(assets/cross.png)";
         board7.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
+        testBoard.checker();
+        const aiCheck = aiChecker();
+        aiCheck?aiPlay() : '';
         testBoard.checker();
 })
 
@@ -241,5 +279,58 @@ board8.addEventListener('click', function () {
         board8.style.backgroundImage = bgImage;
         console.log(testBoard.getBoardValue())
         testBoard.checker();
+        const aiCheck = aiChecker();
+        aiCheck?aiPlay() : '';
+        testBoard.checker();
 })
+
+
+
+//AI checkbox
+
+
+
+
+function aiChecker(){
+
+        const checkbox = document.querySelector("#ai")
+
+        
+                if (checkbox.checked) {
+                return true;
+
+
+                } 
+                else {
+                  return false;
+                }
+              
+
+        
+}
+
+function unAuth(value){
+        const clickedTiles = testBoard.getBoardValue();
+        let rand = Math.floor(Math.random() * 9);
+    
+        // Ensure the AI doesn't select an already clicked tile
+        while (clickedTiles[rand] !== '') {
+            rand = Math.floor(Math.random() * 9);
+        }
+        
+        return rand;
+    }
+
+function aiPlay(){
+                const value = document.querySelector('#avatar').value === 'true'?false:true;
+                let rand =  Math.floor(Math.random() * 9);
+                rand =  unAuth(rand);
+                testBoard.updateValue(value,rand);
+                const bgImage = value === true? "url(assets/circle.png)" : "url(assets/cross.png)";
+                boardarr[rand].style.backgroundImage = bgImage;
+                console.log(testBoard.getBoardValue())
+
+                // testBoard.checker();
+}
+
 
